@@ -4,7 +4,6 @@ pragma solidity ^0.8.20;
 import "../utils/Types.sol";
 
 /// @title IDigitalIdentity
-
 interface IDigitalIdentity {
     /// @notice Emitted when a new user registers
     event UserRegistered(
@@ -22,7 +21,7 @@ interface IDigitalIdentity {
     /// @notice Emitted when an off-chain reference is added
     event OffChainRefAdded(
         address indexed userAddress,
-        string reference
+        string ref
     );
 
     // Errors
@@ -38,7 +37,8 @@ interface IDigitalIdentity {
     /// @notice Unauthorized access attempt
     error Unauthorized();
 
-    // Funtions
+    // Functions
+
     /// @notice Register a new user with hashed identity attributes
     function registerUser(
         bytes32 hashedIdentity,
@@ -55,19 +55,31 @@ interface IDigitalIdentity {
     ) external;
 
     /// @notice Add a reference to off-chain data storage
-    /// @param reference Off-chain storage reference 
-    function addOffChainRef(string calldata reference) external;
+    /// @param ref Off-chain storage reference
+    function addOffChainRef(string calldata ref) external;
 
     /// @notice Get user information
-    function getUser(address userAddress) external view returns (Types.User memory user);
+    function getUser(address userAddress)
+        external
+        view
+        returns (Types.User memory user);
 
     /// @notice Get user's credit profile
-    function getCreditProfile(address userAddress) external view returns (Types.CreditProfile memory creditProfile);
+    function getCreditProfile(address userAddress)
+        external
+        view
+        returns (Types.CreditProfile memory creditProfile);
 
     /// @notice Check if a user is registered
-    function isUserRegistered(address userAddress) external view returns (bool);
+    function isUserRegistered(address userAddress)
+        external
+        view
+        returns (bool);
 
     /// @notice Get all off-chain references for a user
     /// @return references Array of off-chain storage references
-    function getOffChainRefs(address userAddress) external view returns (string[] memory);
+    function getOffChainRefs(address userAddress)
+        external
+        view
+        returns (string[] memory);
 }

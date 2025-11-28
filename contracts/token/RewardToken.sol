@@ -5,7 +5,6 @@ import "./IRewardToken.sol";
 
 /// @title RewardToken implementation
 /// @notice Minimal ERC20-like token for consent rewards. Only ConsentManager can mint
-
 contract RewardToken is IRewardToken {
     string public name;
     string public symbol;
@@ -14,7 +13,8 @@ contract RewardToken is IRewardToken {
     uint256 public totalSupply;
     mapping(address => uint256) private balances;
 
-    address public consentManager;
+    /// @notice Address of the ConsentManager contract allowed to mint
+    address public immutable consentManager;
 
     event Transfer(address indexed from, address indexed to, uint256 value);
 
@@ -38,8 +38,12 @@ contract RewardToken is IRewardToken {
     }
 
     /// @inheritdoc IRewardToken
-
-    function balanceOf(address account) external view override returns (uint256) {
+    function balanceOf(address account)
+        external
+        view
+        override
+        returns (uint256)
+    {
         return balances[account];
     }
 
@@ -58,7 +62,11 @@ contract RewardToken is IRewardToken {
     }
 
     /// @inheritdoc IRewardToken
-    function transfer(address to, uint256 amount) external override returns (bool) {
+    function transfer(address to, uint256 amount)
+        external
+        override
+        returns (bool)
+    {
         if (to == address(0)) {
             revert ZeroAddress();
         }
@@ -67,6 +75,7 @@ contract RewardToken is IRewardToken {
         if (senderBalance < amount) {
             revert InsufficientBalance();
         }
+
         balances[msg.sender] = senderBalance - amount;
         balances[to] += amount;
 

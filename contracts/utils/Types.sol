@@ -2,7 +2,6 @@
 pragma solidity ^0.8.20;
 
 /// @title Types
-
 library Types {
     enum DataCategory {
         CreditScore,
