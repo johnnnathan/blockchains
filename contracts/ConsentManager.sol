@@ -2,7 +2,7 @@
 pragma solidity ^0.8.20;
 
 import "./IConsentManager.sol";
-import "../token/IRewardToken.sol";
+import "./IRewardToken.sol";
 
 /// @title ConsentManager
 /// @notice Handles creation, revocation, and validation of user consents.

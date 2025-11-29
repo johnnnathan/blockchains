@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import "../utils/Types.sol";
+import "./Types.sol";
 
 /// @title IDigitalIdentity
 interface IDigitalIdentity {

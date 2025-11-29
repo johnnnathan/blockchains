@@ -2,7 +2,7 @@
 pragma solidity ^0.8.20;
 
 import "./IDigitalIdentity.sol";
-import "../utils/Types.sol";
+import "./Types.sol";
 
 /// @title DigitalIdentity
 /// @dev Stores hashed identity attributes on-chain for privacy

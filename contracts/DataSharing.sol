@@ -2,7 +2,7 @@
 pragma solidity ^0.8.20;
 
 import "./IDataSharing.sol";
-import "../consent/IConsentManager.sol";
+import "./IConsentManager.sol";
 
 /// @title DataSharing
 /// @notice Enforces consent checks and logs all data access attempts.

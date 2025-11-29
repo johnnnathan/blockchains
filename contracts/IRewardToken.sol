@@ -19,3 +19,4 @@ interface IRewardToken {
     /// @param amount Amount of tokens to mint
     function mint(address to, uint256 amount) external;
 }
+

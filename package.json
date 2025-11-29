@@ -1,0 +1,33 @@
+{
+  "name": "blockchains",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johnnnathan/blockchains.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/johnnnathan/blockchains/issues"
+  },
+  "homepage": "https://github.com/johnnnathan/blockchains#readme",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-ignition": "^3.0.5",
+    "@nomicfoundation/hardhat-toolbox-viem": "^5.0.1",
+    "@types/node": "^22.19.1",
+    "forge-std": "github:foundry-rs/forge-std#v1.9.4",
+    "hardhat": "^3.0.16",
+    "typescript": "~5.8.0",
+    "viem": "^2.40.3"
+  },
+  "type": "module"
+}
