@@ -122,7 +122,7 @@ contract ConsentManagerTest is Test {
 
     function testExpiredConsent() public {
         vm.prank(owner);
-        string;
+        string[] memory dataTypes = new string[](1);
         dataTypes[0] = "email";
         consentManager.setConsent(requester, dataTypes, 1);
 

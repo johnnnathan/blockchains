@@ -82,22 +82,46 @@ contract LargeScaleIntegrationTest is Test {
         assertEq(permitted, false);
     }
 
+
     function testTokenTransfers() public {
-        // Mint some tokens first
+        // 1. Mint only via consentManager
+        address consentManager = address(999); // dummy address
+        rewardToken = new MockRewardToken();
         for (uint256 i = 0; i < NUM_USERS; i++) {
-            vm.prank(users[i]);
+            vm.prank(consentManager);
             rewardToken.mint(users[i], 1 ether);
         }
 
-        // Let each user transfer 0.1 ether to the next user
+        // 2. Each user (except last) transfers 0.1 ether to the next user
         for (uint256 i = 0; i < NUM_USERS - 1; i++) {
             vm.prank(users[i]);
             rewardToken.transfer(users[i + 1], 0.1 ether);
         }
 
-        // Check final balances for a few users
-        assertEq(rewardToken.balanceOf(users[0]), 0.9 ether);
-        assertEq(rewardToken.balanceOf(users[1]), 1.2 ether); // 1 + 0.1 from user[0]
-        assertEq(rewardToken.balanceOf(users[NUM_USERS - 1]), 1.1 ether); // received 0.1 from previous
+        // 3. Check balances dynamically and print failing comparisons
+        for (uint256 i = 0; i < NUM_USERS; i++) {
+            uint256 expected = 1 ether;
+
+            if (i > 0) {
+                expected += 0.1 ether; // received from previous user
+            }
+            if (i < NUM_USERS - 1) {
+                expected -= 0.1 ether; // sent to next user
+            }
+
+            uint256 actual = rewardToken.balanceOf(users[i]);
+            if (actual != expected) {
+                emit log_named_uint(
+                    string.concat("User ", vm.toString(i), " balance mismatch. Expected:"),
+                    expected
+                );
+                emit log_named_uint(
+                    string.concat("User ", vm.toString(i), " actual balance:"),
+                    actual
+                );
+            }
+
+            assertEq(actual, expected, "Incorrect balance for user");
+        }
     }
 }
