@@ -6,7 +6,6 @@ import "forge-std/Test.sol";
 import "./DataSharing.sol";
 import "./ConsentManager.sol";
 import "./IRewardToken.sol";
-import "./DataTypes.sol";
 import "./MockRewardToken.sol";
 
 

@@ -4,7 +4,6 @@ pragma solidity ^0.8.20;
 import "forge-std/Test.sol";
 import "./ConsentManager.sol";
 import "./IRewardToken.sol";
-import "./DataTypes.sol";
 import "./MockRewardToken.sol";
 
 
@@ -120,4 +119,17 @@ contract ConsentManagerTest is Test {
         allowed = consentManager.checkConsent(owner, requester, "email");
         assertEq(allowed, false);
     }
+
+    function testExpiredConsent() public {
+        vm.prank(owner);
+        string;
+        dataTypes[0] = "email";
+        consentManager.setConsent(requester, dataTypes, 1);
+
+        // Fast-forward >1 day
+        vm.warp(block.timestamp + 2 days);
+
+        bool allowed = consentManager.checkConsent(owner, requester, "email");
+        assertEq(allowed, false);
+}
 }

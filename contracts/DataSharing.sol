@@ -14,7 +14,7 @@ contract DataSharing is IDataSharing {
     /// @notice Counter for generating unique log IDs
     uint256 private nextLogId;
 
-    /// @notice Storage for audit logs: logId --> AuditLogEntry
+    /// @notice Storage for audit logs: logId => AuditLogEntry
     mapping(uint256 => AuditLogEntry) private auditLogs;
 
     error InvalidAddress();
@@ -27,8 +27,12 @@ contract DataSharing is IDataSharing {
     }
 
     /// @inheritdoc IDataSharing
-    function accessData(address owner, string calldata dataType) external override returns (bool) {
-        // 1. Check consent validty via ConsentManager. This validates if the consent exists, is active, hasn't expired, and includes the dataType
+    function accessData(address owner, string calldata dataType)
+        external
+        override
+        returns (bool)
+    {
+        // 1. Check consent validity via ConsentManager
         bool isPermitted = consentManager.checkConsent(owner, msg.sender, dataType);
 
         // 2. Create Audit Log Entry
@@ -47,11 +51,11 @@ contract DataSharing is IDataSharing {
 
         // 4. Emit event for off-chain indexing
         emit AccessAttempt(
-            logId, 
-            owner, 
-            msg.sender, 
-            dataType, 
-            isPermitted, 
+            logId,
+            owner,
+            msg.sender,
+            dataType,
+            isPermitted,
             block.timestamp
         );
 
@@ -59,7 +63,12 @@ contract DataSharing is IDataSharing {
     }
 
     /// @inheritdoc IDataSharing
-    function getAuditLog(uint256 logId) external view override returns (AuditLogEntry memory) {
+    function getAuditLog(uint256 logId)
+        external
+        view
+        override
+        returns (AuditLogEntry memory)
+    {
         return auditLogs[logId];
     }
 }

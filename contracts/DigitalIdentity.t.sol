@@ -5,7 +5,6 @@ pragma solidity ^0.8.20;
 import "forge-std/Test.sol";
 import "./DigitalIdentity.sol";
 import "./Types.sol";
-import "./DataTypes.sol";
 
 contract DigitalIdentityTest is Test {
     DigitalIdentity digitalIdentity;

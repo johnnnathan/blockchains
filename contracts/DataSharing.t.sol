@@ -4,10 +4,9 @@ pragma solidity ^0.8.20;
 
 import "forge-std/Test.sol";
 import "./DataSharing.sol";
+import "./IDataSharing.sol";
 import "./ConsentManager.sol";
 import "./IRewardToken.sol";
-import "./Types.sol";
-import "./DataTypes.sol";
 import "./MockRewardToken.sol";
 
 
