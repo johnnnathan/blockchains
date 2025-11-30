@@ -1,23 +1,36 @@
-import { ethers } from "ethers";
-import RewardTokenArtifact from "../artifacts/contracts/RewardToken.sol/RewardToken.json"; // path may vary
-
-const provider = new ethers.JsonRpcProvider("http://127.0.0.1:8545");
-const deployer = new ethers.Wallet(PRIVATE_KEY, provider);
+// scripts/deploy.js
+const hre = require("hardhat");
 
 async function main() {
-  console.log("Deploying with:", await deployer.getAddress());
+  const [deployer] = await hre.ethers.getSigners();
+  console.log("Deploying contracts with account:", deployer.address);
 
-  // Use ethers.ContractFactory from ethers.js
-  const factory = new ethers.ContractFactory(
-    RewardTokenArtifact.abi,
-    RewardTokenArtifact.bytecode,
-    deployer
-  );
-
-  const rewardToken = await factory.deploy("RewardToken", "RWT");
+  // Deploy MockRewardToken
+  const RewardToken = await hre.ethers.getContractFactory("MockRewardToken");
+  const rewardToken = await RewardToken.deploy();
   await rewardToken.waitForDeployment();
 
-  console.log("RewardToken deployed at:", rewardToken.target);
+  const rewardTokenAddress = rewardToken.target;
+  console.log("MockRewardToken deployed at:", rewardTokenAddress);
+
+  // Deploy ConsentManager
+  const ConsentManager = await hre.ethers.getContractFactory("ConsentManager");
+  const consentManager = await ConsentManager.deploy(rewardTokenAddress);
+  await consentManager.waitForDeployment();
+
+  const consentManagerAddress = consentManager.target;
+  console.log("ConsentManager deployed at:", consentManagerAddress);
+
+  // Deploy DataSharing
+  const DataSharing = await hre.ethers.getContractFactory("DataSharing");
+  const dataSharing = await DataSharing.deploy(consentManagerAddress);
+  await dataSharing.waitForDeployment();
+
+  const dataSharingAddress = dataSharing.target;
+  console.log("DataSharing deployed at:", dataSharingAddress);
 }
 
-main().catch(console.error);
+main().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});
