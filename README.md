@@ -9,7 +9,7 @@ As part of our blockchains course, we had to implement a blockchain ourselves. O
 Our blockchain is built on a few different frameworks. We used the solidity programming language to create the contracts, on which the blockchain is based, and the tests which are used to check the validity of the system. A few javascript scripts were also written, that handle operations such as deployment of the blockchain. 
 
 ## Project Structure
-
+```
 .
 ├── contracts/            # Solidity smart contracts
 ├── hardhat.config.ts     # Hardhat configuration 
@@ -17,7 +17,7 @@ Our blockchain is built on a few different frameworks. We used the solidity prog
 ├── scripts/              # Deployment & interaction scripts
 ├── test/                 # Smart contract tests (JS/TS)
 └── tsconfig.json         # TypeScript configuration
-
+```
 ## How to use
 
 Due to conflicts in the versioning of dependencies, the project has been divided into three main branches:
