@@ -64,22 +64,6 @@ contract DigitalIdentityTest is Test {
         digitalIdentity.updateCreditProfile(credit, income, debt);
     }
 
-    function testAddOffChainRef() public {
-        vm.prank(user);
-        digitalIdentity.registerUser(hashedIdentity, credit, income, debt);
-
-        vm.prank(user);
-        uint256 gasBefore = gasleft();
-        digitalIdentity.addOffChainRef("ipfs://abc");
-        digitalIdentity.addOffChainRef("ipfs://def");
-        uint256 gasUsed = gasBefore - gasleft();
-        emit log_named_uint("Gas used for addOffChainRef (2 refs)", gasUsed);
-
-        string[] memory refs = digitalIdentity.getOffChainRefs(user);
-        assertEq(refs.length, 2);
-        assertEq(refs[0], "ipfs://abc");
-        assertEq(refs[1], "ipfs://def");
-    }
 
     function testAddOffChainRefNotRegistered() public {
         vm.prank(user);

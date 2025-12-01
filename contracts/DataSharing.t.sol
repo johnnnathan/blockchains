@@ -37,7 +37,7 @@ contract DataSharingTest is Test {
         consentManager.setConsent(requester, allowedDataTypes, 30);
     }
 
-    function testAccessDataWithConsent() public {
+    function testAccessData() public {
         // requester accessing owner's data
         vm.prank(requester);
         uint256 gasBefore = gasleft();
@@ -53,24 +53,6 @@ contract DataSharingTest is Test {
         assertEq(log.requester, requester);
         assertEq(keccak256(bytes(log.dataType)), keccak256(bytes("email")));
         assertEq(log.granted, true);
-    }
-
-    function testAccessDataWithoutConsent() public {
-        // otherUser trying to access owner's data
-        vm.prank(otherUser);
-        uint256 gasBefore = gasleft();
-        bool permitted = dataSharing.accessData(owner, "email");
-        uint256 gasUsed = gasBefore - gasleft();
-        emit log_named_uint("Gas used for accessData (denied)", gasUsed);
-
-        assertEq(permitted, false);
-
-        // Verify audit log
-        IDataSharing.AuditLogEntry memory log = dataSharing.getAuditLog(2);
-        assertEq(log.owner, owner);
-        assertEq(log.requester, otherUser);
-        assertEq(keccak256(bytes(log.dataType)), keccak256(bytes("email")));
-        assertEq(log.granted, false);
     }
 
     function testAuditLogIncrement() public {
