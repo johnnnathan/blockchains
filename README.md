@@ -64,7 +64,7 @@ Group 06:
 | Name               | Student ID |
 |--------------------|------------|
 |   Dimitrios Tsiplakis     |  i6357626  |
-|       |    |
+|   Marios Petrides         |  i6357032  |
 |           |    |
 |      |    |
 |     |    |
