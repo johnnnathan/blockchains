@@ -66,7 +66,7 @@ Group 06:
 |   Dimitrios Tsiplakis     |  i6357626  |
 |   Angelos Vasilikiotis    |  i6366079  |
 |   Marios Petrides         |  i6357032  |
-|      |    |
+|   Sarper Yuksel           |  i6361199  |
 |     |    |
 
 
