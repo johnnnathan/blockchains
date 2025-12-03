@@ -33,9 +33,8 @@ contract LargeScaleIntegrationTest is Test {
             users.push(address(uint160(i + 1)));
         }
 
-        //-----------------------------
-        // *** Unique User Registration ***
-        //-----------------------------
+
+        // Unique User Registration
         uint256 gasBefore = gasleft();
 
         for (uint256 i = 0; i < NUM_USERS; i++) {
@@ -46,17 +45,17 @@ contract LargeScaleIntegrationTest is Test {
                 abi.encodePacked("user-", i, "-unique-identity")
             );
 
-            // Unique credit class (cycles through A–E)
+            
             string memory creditGroup = string(
                 abi.encodePacked("CREDIT-", uint256(i % 5) + 65) // 65 = 'A'
             );
             bytes32 credit = keccak256(bytes(creditGroup));
 
-            // Unique income class (LOW / MID / HIGH cycling)
+            
             string[3] memory incomes = ["LOW", "MID", "HIGH"];
             bytes32 income = keccak256(bytes(incomes[i % 3]));
 
-            // Unique debt score (LOW / MID / HIGH cycling)
+            
             string[3] memory debts = ["LOW", "MID", "HIGH"];
             bytes32 debt = keccak256(bytes(debts[(i + 1) % 3]));
 
@@ -67,9 +66,8 @@ contract LargeScaleIntegrationTest is Test {
         emit log_named_uint("Total gas: registerUser() for 50 users", gasUsed);
         emit log_named_uint("Average gas: registerUser()", gasUsed / NUM_USERS);
 
-        //-----------------------------
-        // *** Measure gas: Consent Creation ***
-        //-----------------------------
+
+        // Measure gas: Consent Creation
         gasBefore = gasleft();
         for (uint256 i = 0; i < NUM_USERS - 1; i++) {
             vm.prank(users[i]);
@@ -83,9 +81,8 @@ contract LargeScaleIntegrationTest is Test {
     function testAllUsersAccessDataAndRewards() public {
         uint256 totalPermitted = 0;
 
-        //-----------------------------
-        // *** Measure gas: Data Access ***
-        //-----------------------------
+
+        // Measure gas: Data Access 
         uint256 gasBefore = gasleft();
 
         for (uint256 i = 1; i < NUM_USERS; i++) {
@@ -116,9 +113,7 @@ contract LargeScaleIntegrationTest is Test {
 
 
     function testTokenTransfers() public {
-        //-----------------------------------------
-        // 1. Mint tokens (not timed)
-        //-----------------------------------------
+        // Mint tokens (not timed)
         address fakeManager = address(999);
         rewardToken = new MockRewardToken();
         for (uint256 i = 0; i < NUM_USERS; i++) {
@@ -126,9 +121,7 @@ contract LargeScaleIntegrationTest is Test {
             rewardToken.mint(users[i], 1 ether);
         }
 
-        //-----------------------------------------
-        // 2. Measure gas: Token transfers
-        //-----------------------------------------
+        // Measure gas: Token transfers
         uint256 gasBefore = gasleft();
         for (uint256 i = 0; i < NUM_USERS - 1; i++) {
             vm.prank(users[i]);
@@ -139,9 +132,7 @@ contract LargeScaleIntegrationTest is Test {
         emit log_named_uint("Total gas: token transfers (49 transfers)", gasUsed);
         emit log_named_uint("Average gas: rewardToken.transfer()", gasUsed / (NUM_USERS - 1));
 
-        //-----------------------------------------
-        // 3. Verify balances
-        //-----------------------------------------
+        // Verify balances
         for (uint256 i = 0; i < NUM_USERS; i++) {
             uint256 expected = 1 ether;
 
