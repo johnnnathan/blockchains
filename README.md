@@ -67,6 +67,6 @@ Group 06:
 |   Angelos Vasilikiotis    |  i6366079  |
 |   Marios Petrides         |  i6357032  |
 |   Sarper Yuksel           |  i6361199  |
-|     |    |
+|   Andrei Dodu             |  i6366789  |
 
 
